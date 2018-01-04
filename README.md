@@ -14,4 +14,4 @@ Then run flask with:
 ```
 $> flask run
 ```
-Go to `127.0.0.1:5000/walkin` for the walk-in kisok, or `127.0.0.1:5000/print_refund` for the printing refund.
+Go to `127.0.0.1:5000/walkin` for the walk-in kisok, or `127.0.0.1:5000/print_refund` for the printing refund page.
