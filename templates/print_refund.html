@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Reusable Form Demo</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+$(function() {
+$( ".datepicker" ).datepicker();
+});
+</script>
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<ul>
+{% for message in messages %}
+<li>{{ message[1] }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<form action="" method="post">
+{{ form.csrf }}
+<div class="input text">
+{{ form.name.label }} {{ form.name }}
+<br>
+{{ form.net_id.label }} {{ form.net_id }}
+<br>
+{{ form.student_id.label }} {{ form.student_id }}
+<br>
+{{ form.date_of_print.label }} {{ form.date_of_print(class='datepicker') }}
+<br>
+{{ form.time_of_print.label }} {{ form.time_of_print }}
+<br>
+{{ form.printer_name.label }} {{ form.printer_name }}
+<br>
+{{ form.file_name.label }} {{ form.file_name }}
+<br>
+{{ form.num_pages.label }} {{ form.num_pages }}
+<br>
+{{ form.plot_attached.label }} {{ form.plot_attached }}
+<br>
+{{ form.header_attached.label }} {{ form.header_attached }}
+<br>
+{{ form.converted_to_pdf.label }} {{ form.converted_to_pdf }}
+<br>
+{{ form.downsampled.label }} {{ form.downsampled }}
+<br>
+{{ form.explanation.label }} {{ form.explanation }}
+</div>
+<div class="input submit">
+<input type="submit" value="Submit" />
+</div>
+</form>
+</body>
+</html>
