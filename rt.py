@@ -22,21 +22,21 @@ class PrintRefund(Form):
     name = TextField('Name:', validators=[validators.required()])
     net_id = TextField('NetID:', validators=[validators.required()])
     student_id = TextField('Student ID:', validators=[validators.required()])
-    date_of_print = DateField('Date of Print:', format='%Y-%m-%d', validators=[validators.required()])
+    date_of_print = DateField('Date of Print:', format='%m/%d/%Y')
     time_of_print = TimeField('Time of Print:', validators=[validators.required()])
     printer_name = TextField('Printer Name:', validators=[validators.required()])
     file_name = TextField('File Name:', validators=[validators.required()])
     num_pages = IntegerField('Number of Pages:', validators=[validators.NumberRange(min=1)])
-    plot_attached = SelectField('Is the bad plot attached?:', validators=[validators.required()],
+    plot_attached = SelectField('Is the bad plot attached?:',
                                   choices=[("Yes", "Yes"),
                                            ("No", "No")])
-    header_attached = SelectField('Is the header attached?:', validators=[validators.required()],
+    header_attached = SelectField('Is the header attached?:',
                                   choices=[("Yes", "Yes"),
                                            ("No", "No")])
-    converted_to_pdf = SelectField('Did you convert to a PDF?:', validators=[validators.required()],
+    converted_to_pdf = SelectField('Did you convert to a PDF?:',
                                    choices=[("Yes", "Yes"),
                                             ("No", "No")])
-    downsampled = SelectField('Did you downsample before printing?:', validators=[validators.required()],
+    downsampled = SelectField('Did you downsample before printing?:',
                               choices=[("Yes", "Yes"),
                                        ("No", "No")])
     explanation = TextAreaField('Explanation:')
@@ -45,12 +45,12 @@ class PrintRefund(Form):
 def walkin():
     form = WalkInTicket(request.form)
 
-    print form.errors
     if request.method == 'POST':
         if form.validate():
             flash('Thanks for your response, ' + request.form['name'].split(" ")[0], 'success')
             submit_walkin_ticket(request.form)
         else:
+            print form.errors
             flash('Please fill out all fields.', 'danger')
     return render_template('walkin_ticket.html', form=form)
 
@@ -65,6 +65,7 @@ def print_refund():
             flash('Thanks for your response, ' + request.form['name'].split(" ")[0], 'success')
             submit_print_refund(request.form)
         else:
+            print form.errors
             flash('Please fill out all fields.', 'danger')
     return render_template('print_refund.html', form=form)
 

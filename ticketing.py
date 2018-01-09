@@ -9,12 +9,12 @@ import logging
 set_logging('debug')
 logger = logging.getLogger('rtkit')
 
-DEBUGGING=True
+DEBUGGING=False
 
 def read_credentials(credentials_file):
     with open(credentials_file) as f:
         content = f.readlines()
-    return content[0], content[1]
+    return content[0].strip(), content[1].strip()
 
 username, password = read_credentials("credentials.txt")
 resource = RTResource('https://help.rice.edu/REST/1.0/', username, password, CookieAuthenticator)
@@ -35,7 +35,7 @@ def submit_ticket(queue, status, requestor, subject, text):
         print content
     else:
         try:
-            response = resource.post(path='ticket/new', payload=content,)
+            response = resource.post(path='ticket/new', payload=content)
             logger.info(response.parsed)
         except RTResourceError as e:
             print "ERROR"
@@ -44,6 +44,7 @@ def submit_ticket(queue, status, requestor, subject, text):
             logger.error(e.response.parsed)
 
 def submit_walkin_ticket(form_response):
+    print "SUBMITTING WALK-IN TICKET"
     name = form_response['name']
     net_id = form_response['net_id']
     service = form_response['service']
@@ -61,7 +62,7 @@ def submit_print_refund(form_response):
     net_id = form_response['net_id']
     body = "\n".join(map(lambda field: field + ":" + form_response[field], fields))
     submit_ticket("SC: Printing Refund",
-                  "resolved",
+                  "open",
                   net_id + "@rice.edu",
                   "Auto Print Refund",
                   body)

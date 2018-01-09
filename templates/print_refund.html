@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="static/bootstrap-theme.min.css">
 <meta name="viewport" content = "width=device-width, initial-scale=1.0">
 <script src="static/jquery.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
 <script src="static/main.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -49,7 +48,7 @@ $( ".datepicker" ).datepicker();
         <div class="control-group" style="padding-bottom: 10px">
             <label for="student_id" class="control-label">Student ID</label>
             <div class="controls">
-                {{ form.net_id(placeholder="Your Student ID Here") }}
+                {{ form.student_id(placeholder="Your Student ID Here") }}
             </div>
         </div>
         <div class="control-group" style="padding-bottom: 10px">
@@ -81,6 +80,10 @@ $( ".datepicker" ).datepicker();
             <div class="controls">
                 {{ form.num_pages(style="width: 60px;") }}
             </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="header_attached" class="control-label">Header Attached?</label>
+             {{ form.header_attached(class="form-control input-lg", style="width: auto;") }}
         </div>
         <div class="control-group" style="padding-bottom: 10px">
             <label for="plot_attached" class="control-label">Bad Plot Attached?</label>
