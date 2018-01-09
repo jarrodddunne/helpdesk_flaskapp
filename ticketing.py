@@ -9,16 +9,18 @@ import logging
 set_logging('debug')
 logger = logging.getLogger('rtkit')
 
+DEBUGGING=True
+
 def read_credentials(credentials_file):
     with open(credentials_file) as f:
         content = f.readlines()
     return content[0], content[1]
- 
+
 username, password = read_credentials("credentials.txt")
 resource = RTResource('https://help.rice.edu/REST/1.0/', username, password, CookieAuthenticator)
 
 def submit_ticket(queue, status, requestor, subject, text):
-    global resource
+    global resource, DEBUGGING
     content = {
         'content' : {
             'Queue' : queue,
@@ -28,14 +30,18 @@ def submit_ticket(queue, status, requestor, subject, text):
             'Text' : text
         }
     }
-    try:
-        response = resource.post(path='ticket/new', payload=content,)
-        logger.info(response.parsed)
-    except RTResourceError as e:
-        print "ERROR"
-        logger.error(e.response.status_int)
-        logger.error(e.response.status)
-        logger.error(e.response.parsed)
+    if DEBUGGING:
+        print "DEBUGGING - sent response with content:"
+        print content
+    else:
+        try:
+            response = resource.post(path='ticket/new', payload=content,)
+            logger.info(response.parsed)
+        except RTResourceError as e:
+            print "ERROR"
+            logger.error(e.response.status_int)
+            logger.error(e.response.status)
+            logger.error(e.response.parsed)
 
 def submit_walkin_ticket(form_response):
     name = form_response['name']

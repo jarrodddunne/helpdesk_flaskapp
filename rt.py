@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, request
-from wtforms import Form, TextField, TextAreaField, DateField, SelectField, validators, StringField, SubmitField
+from wtforms import Form, TextField, TextAreaField, DateField, SelectField, validators, StringField, SubmitField, BooleanField
 from wtforms_components import TimeField, IntegerField
 from ticketing import submit_walkin_ticket, submit_print_refund
 
@@ -28,8 +28,8 @@ class PrintRefund(Form):
     file_name = TextField('File Name:', validators=[validators.required()])
     num_pages = IntegerField('Number of Pages:', validators=[validators.NumberRange(min=1)])
     plot_attached = SelectField('Is the bad plot attached?:', validators=[validators.required()],
-                                choices=[("Yes", "Yes"),
-                                         ("No", "No")])
+                                  choices=[("Yes", "Yes"),
+                                           ("No", "No")])
     header_attached = SelectField('Is the header attached?:', validators=[validators.required()],
                                   choices=[("Yes", "Yes"),
                                            ("No", "No")])
@@ -47,12 +47,11 @@ def walkin():
 
     print form.errors
     if request.method == 'POST':
-        print request.form
         if form.validate():
-            flash('Hello ' + request.form['name'])
+            flash('Thanks for your response, ' + request.form['name'].split(" ")[0], 'success')
             submit_walkin_ticket(request.form)
         else:
-            flash('All the form fields are required. ')
+            flash('Please fill out all fields.', 'danger')
     return render_template('walkin_ticket.html', form=form)
 
 @app.route("/print_refund", methods=['GET', 'POST'])
@@ -63,10 +62,10 @@ def print_refund():
     if request.method == 'POST':
         print request.form
         if form.validate():
-            flash('Hello ' + name)
-        else:
-            flash('All the form fields are required. ')
+            flash('Thanks for your response, ' + request.form['name'].split(" ")[0], 'success')
             submit_print_refund(request.form)
+        else:
+            flash('Please fill out all fields.', 'danger')
     return render_template('print_refund.html', form=form)
 
 if __name__ == "__main__":

@@ -1,30 +1,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-<title>Reusable Form Demo</title>
+<title>Help Desk Walk-In Ticket Kiosk</title>
+<link rel="stylesheet" media="screen" href ="static/bootstrap.min.css">
+<link rel="stylesheet" href="static/bootstrap-theme.min.css">
+<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="static/main.js"></script>
 </head>
 <body>
 {% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-<ul>
-{% for message in messages %}
-<li>{{ message[1] }}</li>
-{% endfor %}
-</ul>
-{% endif %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">X</span></button>
+                <p style="font-size: 24px" class="text-center">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endwith %}
-<form action="" method="post">
-{{ form.csrf }}
-<div class="input text">
-{{ form.name.label }} {{ form.name }}
-<br>
-{{ form.net_id.label }} {{ form.net_id }}
-<br>
-{{ form.service.label }} {{ form.service }}
+<div class="container col-md-2 col-md-offset-5" style="font-size: 24px;" height="100%">
+    <form class="form-horizontal" action="" method="post" style="margin-top:50px;">
+<img src="static/logo.png" width="300px">
+<h1 class="display-1" align="center">Walk-In Kiosk</h1>
+        {{ form.csrf }}
+        <div class="control-group">
+            <label for="name" class="control-label">Name</label>
+            <div class="controls">
+                {{ form.name(placeholder="Your Name Here") }}
+            </div>
+        </div>
+        <br>
+        <div class="control-group">
+            <label for="net_id" class="control-label">NetID</label>
+            <div class="controls">
+                {{ form.net_id(placeholder="Your NetID Here") }}
+            </div>
+        </div>
+        <br>
+        <div class="control-group">
+            <label for="service" class="control-label">Service</label>
+            <div class="controls">
+                {{ form.service(class="form-control input-lg", style="width: auto;") }}
+            </div>
+        </div>
+        <br>
+        <div class="input submit">
+            <input type="submit" value="Submit Ticket" class="btn btn-primary input-lg col-lg-5"/>
+        </div>
+    </form>
 </div>
-<div class="input submit">
-<input type="submit" value="Submit" />
-</div>
-</form>
 </body>
 </html>

@@ -1,7 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-<title>Reusable Form Demo</title>
+<title>Help Desk Print Refund Form</title>
+<link rel="stylesheet" media="screen" href ="static/bootstrap.min.css">
+<link rel="stylesheet" href="static/bootstrap-theme.min.css">
+<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+<script src="static/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/main.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -12,47 +18,96 @@ $( ".datepicker" ).datepicker();
 </script>
 </head>
 <body>
+
 {% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-<ul>
-{% for message in messages %}
-<li>{{ message[1] }}</li>
-{% endfor %}
-</ul>
-{% endif %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">X</span></button>
+                <p style="font-size: 24px" class="text-center">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endwith %}
-<form action="" method="post">
-{{ form.csrf }}
-<div class="input text">
-{{ form.name.label }} {{ form.name }}
-<br>
-{{ form.net_id.label }} {{ form.net_id }}
-<br>
-{{ form.student_id.label }} {{ form.student_id }}
-<br>
-{{ form.date_of_print.label }} {{ form.date_of_print(class='datepicker') }}
-<br>
-{{ form.time_of_print.label }} {{ form.time_of_print }}
-<br>
-{{ form.printer_name.label }} {{ form.printer_name }}
-<br>
-{{ form.file_name.label }} {{ form.file_name }}
-<br>
-{{ form.num_pages.label }} {{ form.num_pages }}
-<br>
-{{ form.plot_attached.label }} {{ form.plot_attached }}
-<br>
-{{ form.header_attached.label }} {{ form.header_attached }}
-<br>
-{{ form.converted_to_pdf.label }} {{ form.converted_to_pdf }}
-<br>
-{{ form.downsampled.label }} {{ form.downsampled }}
-<br>
-{{ form.explanation.label }} {{ form.explanation }}
+<div class="container col-md-2 col-md-offset-5" style="font-size: 24px;" height="100%">
+    <form class="form-horizontal" action="" method="post" style="margin-top:50px;">
+<img src="static/logo.png" width="300px">
+<h1 class="display-1" align="center">Print Refund</h1>
+        {{ form.csrf }}
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="name" class="control-label">Name</label>
+            <div class="controls">
+                {{ form.name(placeholder="Your Name Here") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="net_id" class="control-label">NetID</label>
+            <div class="controls">
+                {{ form.net_id(placeholder="Your NetID Here") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="student_id" class="control-label">Student ID</label>
+            <div class="controls">
+                {{ form.net_id(placeholder="Your Student ID Here") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="date_of_print" class="control-label">Print Date</label>
+            <div class="controls">
+                {{ form.date_of_print(class="datepicker") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="time_of_print" class="control-label">Print Time</label>
+            <div class="controls">
+                {{ form.time_of_print }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="printer_name" class="control-label">Printer Name</label>
+            <div class="controls">
+                {{ form.printer_name(placeholder="Printer Name Here") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="file_name" class="control-label">File Name</label>
+            <div class="controls">
+                {{ form.file_name(placeholder="File Name Here") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="num_pages" class="control-label">Number of Pages</label>
+            <div class="controls">
+                {{ form.num_pages(style="width: 60px;") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="plot_attached" class="control-label">Bad Plot Attached?</label>
+             {{ form.plot_attached(class="form-control input-lg", style="width: auto;") }}
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="converted_to_pdf" class="control-label">Did you convert to PDF?</label>
+            <div class="controls">
+                {{ form.converted_to_pdf(class="form-control input-lg", style="width: auto;") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="downsampled" class="control-label">Did you downsample?</label>
+            <div class="controls">
+                {{ form.downsampled(class="form-control input-lg", style="width: auto;") }}
+            </div>
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label for="explanation" class="control-label">Additional information:</label>
+            <div class="controls">
+                {{ form.explanation }}
+            </div>
+        </div>
+        <div class="input submit" style="padding-bottom: 10px">
+            <input type="submit" value="Submit Ticket" class="btn btn-primary input-lg col-lg-5"/>
+        </div>
+    </form>
 </div>
-<div class="input submit">
-<input type="submit" value="Submit" />
-</div>
-</form>
 </body>
 </html>
