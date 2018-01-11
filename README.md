@@ -8,7 +8,7 @@ Add a `credentials.txt` file in the root directory, with the first line being th
 
 Export the `FLASK_APP` environment variable with:
 ```
-$> export FLASK_APP=rt.py
+$> export FLASK_APP=main.py
 ```
 Then run flask with:
 ```

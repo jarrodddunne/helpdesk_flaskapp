@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, request
+from flask import Flask, render_template, flash, request, redirect, url_for
 from wtforms import Form, TextField, TextAreaField, DateField, SelectField, validators, StringField, SubmitField, BooleanField
 from wtforms_components import TimeField, IntegerField
 from ticketing import submit_walkin_ticket, submit_print_refund
@@ -49,6 +49,7 @@ def walkin():
         if form.validate():
             flash('Thanks for your response, ' + request.form['name'].split(" ")[0], 'success')
             submit_walkin_ticket(request.form)
+            return redirect(url_for('walkin'))
         else:
             print form.errors
             flash('Please fill out all fields.', 'danger')
@@ -64,6 +65,7 @@ def print_refund():
         if form.validate():
             flash('Thanks for your response, ' + request.form['name'].split(" ")[0], 'success')
             submit_print_refund(request.form)
+            return redirect(url_for('print_refund'))
         else:
             print form.errors
             flash('Please fill out all fields.', 'danger')
