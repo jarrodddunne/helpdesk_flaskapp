@@ -14,9 +14,11 @@ class WalkInTicket(Form):
     net_id = TextField('NetID:', validators=[validators.required()])
     service = SelectField('Service:', validators=[validators.required()],
                           choices=[("Device Configuration", "Device Configuration"),
+                                   ("Ethernet Request", "Ethernet Request"),
                                    ("Printing", "Printing"),
                                    ("Accounts", "Accounts"),
                                    ("Other", "Other")])
+    comments = TextField('Additional Comments:')
 
 class PrintRefund(Form):
     name = TextField('Name:', validators=[validators.required()])
