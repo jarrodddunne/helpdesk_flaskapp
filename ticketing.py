@@ -48,14 +48,31 @@ def submit_walkin_ticket(form_response):
     name = form_response['name']
     net_id = form_response['net_id']
     service = form_response['service']
-    submit_ticket("SC: Repair Center",
+    comments = form_response['comments']
+
+    if service == "Ethernet Request":
+        # logging.debug(form_response)
+        submit_ticket("IT: Tech Services",
+                      "resolved",
+                      net_id + "@rice.edu",
+                      "Auto Ethernet Walk-in Ticket",
+                      "The following user was helped at the Help Desk:" +
+                      "\nName: " + name +
+                      "\nNetID: " + net_id +
+                      "\n" + name + " received a "
+                      "\n\n" + comments + "ft Ethernet Cable")
+    else:
+        # logging.debug(form_response)
+        submit_ticket("SC: Repair Center",
                   "resolved",
                   net_id + "@rice.edu",
                   "Auto Walk-In Ticket",
                   "The following user was helped at the Help Desk:" +
                   "\nName: " + name +
                   "\nNetID: " + net_id +
-                  "\n" + name + " was helped with " + service)
+                  "\n" + name + " was helped with " + service +
+                  "\n" +
+                  "\n" "Additional Comments: " + comments)
 
 def submit_print_refund(form_response):
     fields = ["name", "net_id", "student_id", "date_of_print", "time_of_print", "printer_name", "file_name", "num_pages", "plot_attached", "header_attached", "converted_to_pdf", "downsampled", "explanation"]

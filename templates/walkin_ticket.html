@@ -28,14 +28,14 @@
         <div class="control-group">
             <label for="name" class="control-label">Name</label>
             <div class="controls">
-                {{ form.name(placeholder="Your Name Here") }}
+                {{ form.name(placeholder="Your Name Here", class="form-control input-lg", style="width:auto;") }}
             </div>
         </div>
         <br>
         <div class="control-group">
             <label for="net_id" class="control-label">NetID</label>
             <div class="controls">
-                {{ form.net_id(placeholder="Your NetID Here") }}
+                {{ form.net_id(placeholder="Your NetID Here", class="form-control input-lg", style="width:auto;") }}
             </div>
         </div>
         <br>
@@ -46,9 +46,17 @@
             </div>
         </div>
         <br>
+        <div class="control-group">
+            <label for="comments" class="control-label">Additional Comments</label>
+            <div class="controls">
+                {{ form.comments(placeholder="Cable Length, etc.", class="form-control input-lg", style="width: auto;") }}
+            </div>
+        </div>
+        <br>
         <div class="input submit">
             <input type="submit" value="Submit Ticket" class="btn btn-primary input-lg col-lg-5"/>
         </div>
+
     </form>
 </div>
 </body>
