@@ -14,7 +14,7 @@ python-rtkit==0.7.2
 requests==2.18.4
 rt==1.0.10
 six==1.11.0
-urllib3==1.22
+urllib3==1.26.5
 validators==0.12.0
 Werkzeug==0.14.1
 WTForms==2.1
